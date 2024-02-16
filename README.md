@@ -1,4 +1,6 @@
-# HadoopWordCount
+
+# Word Count using Hadoop Map Reduce
+
 This project contains a Hadoop MapReduce job for counting the frequency of words in a given input text file.
 
 ## Components
@@ -15,26 +17,35 @@ To run this MapReduce job, you will need a Hadoop cluster set up and configured.
 
 ## Steps
 
-- After creating a jar, follow the steps to run the wordcount job on a hadoop container
+After creating a jar, follow the steps to run the wordcount job on a hadoop container
 
-- 1. Copy the jar from local file to the name node
--    docker cp [PATH_TO_JAR] namenode:/tmp
+1. Copy the jar from local file to the name node
+```sh 
+    docker cp [PATH_TO_JAR] namenode:/tmp
+```
 
+2. Access the terminal of hadoop master container using the command below
 
-- 2. Access the terminal of hadoop master container using the command below:
+```sh 
+    docker exec -it namenode /bin/bash
+```
 
-- docker exec -it namenode /bin/bash
+3. Once you login to the namenode, create a directory to store the inputs.
 
-- 3. Once you login to the namenode, create a directory to store the inputs.
--   hdfs dfs -mkdir /input
+```sh 
+    hdfs dfs -mkdir /input
+```
+4. Copy the file to HDFS using the hdfs dfs -put command
 
-- 4. Copy the file to HDFS using the hdfs dfs -put command
+```sh 
+    hdfs dfs -put /path/to/your/localfile.txt /input
+```
 
--  hdfs dfs -put /path/to/your/localfile.txt /input
+5. Run the map reduce job using this command
 
--  hadoop jar averageTempCalculator-1.0-SNAPSHOT.jar org.example.Temperature input/2024.csv output1
-
-
+```sh 
+    hadoop jar averageTempCalculator-1.0-SNAPSHOT.jar org.example.Temperature input/2024.csv output1
+```
 
 
 
